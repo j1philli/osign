@@ -1,0 +1,5 @@
+# Compose settings shared by the UI modules.
+settings:
+  compose:
+    enabled: true
+    version: 1.12.1

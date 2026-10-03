@@ -1,0 +1,54 @@
+name: Deploy web viewer to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let an in-progress deployment finish rather than cancelling it midway.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  KOTLIN_CLI_NO_WELCOME_BANNER: 1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # The Kotlin Toolchain keeps its distribution, JDKs, and dependencies here.
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/JetBrains/Kotlin
+          key: kotlin-toolchain-${{ runner.os }}-${{ hashFiles('kotlin', 'libs.versions.toml', '**/module.yaml', '*.module-template.yaml') }}
+          restore-keys: kotlin-toolchain-${{ runner.os }}-
+
+      - name: Test
+        run: ./kotlin test
+
+      - name: Build web app
+        run: ./build-web.sh release
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: web-app-dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

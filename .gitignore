@@ -1,0 +1,13 @@
+# OS files
+.DS_Store
+
+# Kotlin Toolchain build output
+build/
+
+# Staged wasm web app (produced by build-web.sh)
+web-app-dist/
+
+# Editor
+.idea/
+.vscode/
+*.iml

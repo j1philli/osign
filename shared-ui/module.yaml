@@ -1,0 +1,19 @@
+description: Compose Multiplatform UI for viewing osign files.
+
+product:
+  type: kmp/lib
+  platforms: [wasmJs]
+
+apply:
+  - //common.module-template.yaml
+  - //compose.module-template.yaml
+
+dependencies:
+  - ../shared
+  - $compose.foundation: exported
+  - $compose.components.resources
+  - $libs.compose.material3: exported
+  - $libs.coroutines.core
+  - $libs.filekit.core
+  - $libs.filekit.dialogs
+  - $libs.filekit.dialogs.compose

@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "setup": "./kotlin build",
+        "run": "just web"
+    }
+}

@@ -1,0 +1,14 @@
+description: Kotlin/Wasm entry point for the osign viewer (served in a browser).
+
+product: wasm-js/app
+
+apply:
+  - //common.module-template.yaml
+  - //compose.module-template.yaml
+
+dependencies:
+  - ../shared-ui
+  - $compose.ui
+  - $libs.coroutines.core
+  - $libs.filekit.core
+  - $libs.kotlinx.browser

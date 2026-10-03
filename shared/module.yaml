@@ -1,0 +1,17 @@
+description: osign document model, parser, and validation.
+
+product:
+  type: kmp/lib
+  # jvm is only here so the unit tests can run: the Kotlin Toolchain can't execute wasmJs tests yet (KTC-5576).
+  platforms: [wasmJs, jvm]
+
+apply:
+  - //common.module-template.yaml
+
+dependencies:
+  # JsonObject is part of the public model API, so consumers need it at compile time.
+  - $kotlin.serialization.json: exported
+
+settings:
+  kotlin:
+    serialization: enabled

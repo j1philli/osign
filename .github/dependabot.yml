@@ -1,0 +1,7 @@
+version: 2
+updates:
+  # Kotlin Toolchain dependencies (libs.versions.toml, module.yaml) aren't supported by Dependabot, so only actions are tracked.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

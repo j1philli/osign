@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>osign viewer</title>
+    <link rel="icon" type="image/png" href="./favicon.png">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+            outline: none;
+            touch-action: none;
+        }
+    </style>
+    {{kotlin.scripts}}
+</head>
+<body>
+<script>
+    // Surface load/runtime failures instead of leaving a blank page. The overlay is created on demand because
+    // ComposeViewport takes over the body's children.
+    function showError(text) {
+        var el = document.getElementById('error-display');
+        if (!el) {
+            el = document.createElement('div');
+            el.id = 'error-display';
+            el.style.cssText = 'position:fixed; inset:0; background:#1a1a2e; color:#e94560; font-family:monospace; padding:20px; overflow:auto; z-index:9999; white-space:pre-wrap;';
+            document.body.appendChild(el);
+        }
+        el.textContent += text + '\n';
+    }
+    window.addEventListener('error', function (e) {
+        showError('ERROR: ' + e.message + '\nSource: ' + e.filename + ':' + e.lineno + ':' + e.colno + (e.error && e.error.stack ? '\n' + e.error.stack : ''));
+    });
+    window.addEventListener('unhandledrejection', function (e) {
+        var reason = e.reason || {};
+        showError('UNHANDLED REJECTION: ' + (reason.message || reason) + (reason.stack ? '\n' + reason.stack : ''));
+    });
+
+    // Focus the Compose canvas once it is created so keyboard input works immediately.
+    new MutationObserver(function (mutations, observer) {
+        for (var i = 0; i < mutations.length; i++) {
+            var added = mutations[i].addedNodes;
+            for (var j = 0; j < added.length; j++) {
+                if (added[j].tagName === 'CANVAS') {
+                    added[j].setAttribute('tabindex', '0');
+                    added[j].focus();
+                    observer.disconnect();
+                    return;
+                }
+            }
+        }
+    }).observe(document.body, { childList: true, subtree: true });
+</script>
+</body>
+</html>

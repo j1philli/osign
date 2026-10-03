@@ -1,0 +1,262 @@
+{
+  "id": "doc-hello",
+  "name": "Hello osign",
+  "osign_version": "0.1.0",
+  "canvas_version": "1.0",
+  "meta": {
+    "author": "sample",
+    "created_at": "2025-02-09T12:00:00Z"
+  },
+  "nodes": [
+    {
+      "id": "frame-hero",
+      "type": "frame",
+      "x": 0,
+      "y": 0,
+      "width": 960,
+      "height": 540,
+      "label": "Marketing Hero",
+      "layout": {
+        "layoutMode": "vertical",
+        "padding": {
+          "top": 32,
+          "right": 32,
+          "bottom": 32,
+          "left": 32
+        },
+        "spacing": 24
+      },
+      "style": {
+        "fill": "#f6f6ff"
+      }
+    },
+    {
+      "id": "text-title",
+      "type": "text",
+      "x": 48,
+      "y": 64,
+      "width": 480,
+      "height": 60,
+      "label": "Design systems in plain JSON",
+      "parentId": "frame-hero",
+      "style": {
+        "fill": "#111322",
+        "typographyTokenId": "heading/xxl"
+      }
+    },
+    {
+      "id": "shape-card",
+      "type": "shape",
+      "x": 48,
+      "y": 160,
+      "width": 420,
+      "height": 220,
+      "label": "Feature Card",
+      "parentId": "frame-hero",
+      "style": {
+        "fill": "#ffffff",
+        "stroke": "#c3c7ff",
+        "borderRadius": 16,
+        "shadow": "0px 30px 60px rgba(21,24,77,0.1)"
+      }
+    },
+    {
+      "id": "group-badge",
+      "type": "group",
+      "x": 60,
+      "y": 190,
+      "width": 200,
+      "height": 64,
+      "label": "Beta badge",
+      "parentId": "shape-card",
+      "children": [
+        "shape-badge-bg",
+        "text-badge"
+      ]
+    },
+    {
+      "id": "shape-badge-bg",
+      "type": "shape",
+      "x": 60,
+      "y": 195,
+      "width": 200,
+      "height": 36,
+      "label": "Badge background",
+      "parentId": "group-badge",
+      "style": {
+        "fill": "#e6f0ff",
+        "stroke": "#3366ff",
+        "borderRadius": 32
+      }
+    },
+    {
+      "id": "text-badge",
+      "type": "text",
+      "x": 88,
+      "y": 202,
+      "width": 120,
+      "height": 24,
+      "label": "beta access",
+      "parentId": "group-badge",
+      "style": {
+        "fill": "#1a1f6c",
+        "typographyTokenId": "label/s"
+      }
+    },
+    {
+      "id": "image-avatar",
+      "type": "image",
+      "x": 520,
+      "y": 120,
+      "width": 280,
+      "height": 280,
+      "label": "Author photo",
+      "parentId": "frame-hero",
+      "data": {
+        "assetId": "asset-avatar"
+      },
+      "file": "resources/images/avatar.png"
+    },
+    {
+      "id": "asset-avatar",
+      "type": "asset",
+      "x": 820,
+      "y": 60,
+      "width": 120,
+      "height": 120,
+      "label": "Avatar source",
+      "data": {
+        "kind": "image"
+      },
+      "file": "resources/images/avatar.png"
+    },
+    {
+      "id": "component-button",
+      "type": "component",
+      "x": 40,
+      "y": 440,
+      "width": 160,
+      "height": 60,
+      "label": "Primary Button",
+      "component": {
+        "key": "button/primary",
+        "variantProps": {
+          "size": "large",
+          "tone": "brand"
+        }
+      },
+      "style": {
+        "fill": "#3040ff",
+        "stroke": "#101655",
+        "borderRadius": 16,
+        "typographyTokenId": "button/l"
+      }
+    },
+    {
+      "id": "instance-button",
+      "type": "instance",
+      "x": 48,
+      "y": 420,
+      "width": 200,
+      "height": 64,
+      "label": "Instance > CTA",
+      "parentId": "frame-hero",
+      "component": {
+        "key": "button/primary",
+        "variantProps": {
+          "size": "large",
+          "tone": "brand",
+          "icon": "arrow-right"
+        }
+      },
+      "style": {
+        "fill": "#2030d8",
+        "stroke": "#0e144e",
+        "borderRadius": 16,
+        "typographyTokenId": "button/l"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-frame-text",
+      "fromNodeId": "frame-hero",
+      "toNodeId": "text-title",
+      "label": "contains"
+    },
+    {
+      "id": "edge-frame-card",
+      "fromNodeId": "frame-hero",
+      "toNodeId": "shape-card",
+      "label": "contains"
+    },
+    {
+      "id": "edge-card-group",
+      "fromNodeId": "shape-card",
+      "toNodeId": "group-badge",
+      "label": "contains"
+    },
+    {
+      "id": "edge-group-text",
+      "fromNodeId": "group-badge",
+      "toNodeId": "text-badge",
+      "label": "contains"
+    },
+    {
+      "id": "edge-group-shape",
+      "fromNodeId": "group-badge",
+      "toNodeId": "shape-badge-bg",
+      "label": "contains"
+    },
+    {
+      "id": "edge-frame-image",
+      "fromNodeId": "frame-hero",
+      "toNodeId": "image-avatar",
+      "label": "contains"
+    },
+    {
+      "id": "edge-image-asset",
+      "fromNodeId": "image-avatar",
+      "toNodeId": "asset-avatar",
+      "label": "references"
+    },
+    {
+      "id": "edge-component-instance",
+      "fromNodeId": "component-button",
+      "toNodeId": "instance-button",
+      "label": "contains"
+    }
+  ],
+  "resources": {
+    "tokens": [
+      {
+        "id": "heading/xxl",
+        "fontFamily": "Inter",
+        "fontSize": 48,
+        "fontWeight": 600,
+        "lineHeight": 60
+      },
+      {
+        "id": "label/s",
+        "fontFamily": "Inter",
+        "fontSize": 14,
+        "fontWeight": 500,
+        "lineHeight": 20
+      },
+      {
+        "id": "button/l",
+        "fontFamily": "Inter",
+        "fontSize": 18,
+        "fontWeight": 600,
+        "lineHeight": 24
+      }
+    ],
+    "assets": [
+      {
+        "id": "asset-avatar",
+        "mimeType": "image/png",
+        "file": "resources/images/avatar.png"
+      }
+    ]
+  }
+}

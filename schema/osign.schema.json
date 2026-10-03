@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/osign.schema.json",
+  "title": "osign document",
+  "type": "object",
+  "required": ["osign_version", "canvas_version", "nodes", "edges"],
+  "properties": {
+    "osign_version": { "type": "string" },
+    "canvas_version": { "type": "string" },
+    "meta": { "type": "object" },
+    "nodes": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/node" }
+    },
+    "edges": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/edge" }
+    },
+    "resources": { "type": "object" }
+  },
+  "definitions": {
+    "node": {
+      "type": "object",
+      "required": ["id", "type", "x", "y", "width", "height"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "width": { "type": "number" },
+        "height": { "type": "number" },
+        "file": { "type": "string" },
+        "z_index": { "type": "number" },
+        "label": { "type": "string" },
+        "parentId": { "type": "string" },
+        "children": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "style": { "type": "object" },
+        "layout": { "type": "object" },
+        "component": { "type": "object" },
+        "data": { "type": "object" }
+      },
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "enum": ["image", "asset", "file"]
+              }
+            }
+          },
+          "then": {
+            "required": ["file"]
+          }
+        }
+      ]
+    },
+    "edge": {
+      "type": "object",
+      "required": ["id", "fromNodeId", "toNodeId"],
+      "properties": {
+        "id": { "type": "string" },
+        "fromNodeId": { "type": "string" },
+        "toNodeId": { "type": "string" },
+        "label": { "type": "string" },
+        "style": { "type": "object" },
+        "data": { "type": "object" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,4 @@
+modules:
+  - shared
+  - shared-ui
+  - web-app

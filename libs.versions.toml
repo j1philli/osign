@@ -1,0 +1,14 @@
+[versions]
+# Compose Multiplatform 1.12.1 ships Material3 as 1.12.0-alpha03 (see the CMP 1.12.1 release notes).
+compose-material3 = "1.12.0-alpha03"
+coroutines = "1.11.0"
+filekit = "0.16.0"
+kotlinx-browser = "0.5.0"
+
+[libraries]
+compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "compose-material3" }
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+filekit-core = { module = "io.github.vinceglb:filekit-core", version.ref = "filekit" }
+filekit-dialogs = { module = "io.github.vinceglb:filekit-dialogs", version.ref = "filekit" }
+filekit-dialogs-compose = { module = "io.github.vinceglb:filekit-dialogs-compose", version.ref = "filekit" }
+kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.ref = "kotlinx-browser" }
